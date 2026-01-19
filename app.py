@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
 import base64
+import os
 
 app = Flask(__name__)
 
@@ -218,5 +219,6 @@ def index():
 def video_feed():
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-if __name__ == '__main__':
-    app.run(debug=True, threaded=True)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port, debug=False)
